@@ -1,0 +1,50 @@
+
+<div id="<%= dom_id event %>" class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <!-- Post Header: Author and Time -->
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div>
+        <strong><%= event.organizer&.name || "Unknown Organizer" %></strong>
+        <small class="text-muted">| <%= time_tag event.created_at, event.created_at%></small>
+      </div>
+    </div>
+
+    <!-- Event Title -->
+    <h5 class="card-title"><%= event.title %></h5>
+
+    <!-- Event Images -->
+    <% if event.images.attached? %>
+      <div class="mb-3 d-flex flex-wrap gap-2">
+        <% event.images.each do |image| %>
+          <%= image_tag image, class: "img-thumbnail", style: "max-height: 150px;" %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <!-- Event Description -->
+    <div class="card-text trix-content">
+      <%= event.description %>
+    </div>
+
+    <!-- Event Details -->
+    <div class="mt-3">
+      <% if event.event_date.present? %>
+        <p><strong>Date:</strong> <%= event.event_date.strftime("%B %d, %Y - %I:%M %p") %></p>
+      <% else %>
+        <p><strong>Date:</strong> Not available</p>
+      <% end %>
+      <p><strong>Location:</strong> <%= event.location %></p>
+      <p><strong>Total Seats:</strong> <%= event.total_seats %></p>
+      <p><strong>Standard Seat Price:</strong> $<%= number_with_precision(event.standard_seat_price, precision: 2) %></p>
+      <p><strong>Economy Seat Price:</strong> $<%= number_with_precision(event.economy_seat_price, precision: 2) %></p>
+    <p><strong>VIP Seat Price:</strong> $<%= number_with_precision(event.vip_seat_price, precision: 2) %></p>
+    </div>
+
+    <!-- Optional: Buttons for show/edit/delete -->
+    <div class="mt-3 d-flex gap-2">
+      <%= link_to "Show this event", event_path(event), class: "btn btn-outline-primary btn-sm" %>
+        <%= link_to "Edit",edit_event_path(event), class: "btn btn-outline-secondary btn-sm" %>
+        <%= button_to "Delete", event, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger btn-sm" %>   
+    </div>
+  </div>
+</div>

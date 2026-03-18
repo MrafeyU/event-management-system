@@ -1,0 +1,2 @@
+module Attendee::EventsHelper
+end

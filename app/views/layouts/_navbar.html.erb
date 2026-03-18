@@ -1,0 +1,51 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <!-- Brand / Home Link -->
+    <%= link_to "EMS", root_path, class: "navbar-brand" %>
+
+    <!-- Toggler for mobile view -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "Home", root_path, class: "nav-link" %>
+        </li>
+        <% if current_user %>
+        <li class="nav-item">
+          <%= link_to "Events", events_path, class: "nav-link" %>
+        </li>
+        <% end %>
+      </ul>
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+        <% if current_user %>
+          <li class="nav-item me-2">
+            <%= link_to "Account", edit_user_registration_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item me-2">
+            <% if current_user.avatar.attached? %>
+              <%= image_tag current_user.avatar, class: "rounded-circle", width: 40, height: 40 %>
+            <% else %>
+              <%= image_tag "default_avatar.png", class: "rounded-circle", width: 40, height: 40 %>
+            <% end %>
+          </li>
+          <li class="nav-item me-2">
+            <%= button_to "SIGN OUT", destroy_user_session_path, method: :delete, form_class: "d-inline", class: "btn btn-link nav-link p-0" %>
+          </li>
+        <% else %>
+          <li class="nav-item me-2">
+            <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
