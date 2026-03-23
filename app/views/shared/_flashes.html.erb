@@ -1,0 +1,23 @@
+
+<div class="position-fixed top-0 end-50 p-3" style="z-index: 1055;">
+  <% flash.each do |type, msg| %>
+
+
+    <% bootstrap_class =
+      case type.to_sym
+      when :notice then "success"
+      when :alert then "danger"
+      else "primary"
+      end
+    %>
+
+
+    <div class="alert alert-<%= bootstrap_class %> alert-dismissible fade show shadow-sm mb-2" role="alert">
+      <%= msg %>
+    </div>
+
+
+  <% end %>
+</div>
+
+

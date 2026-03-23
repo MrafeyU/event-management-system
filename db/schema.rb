@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_17_103645) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_22_153610) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -43,14 +43,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_103645) do
   end
 
   create_table "bookings", force: :cascade do |t|
+    t.bigint "attendee_id", null: false
     t.datetime "created_at", null: false
     t.bigint "event_id", null: false
+    t.integer "price_per_seat"
+    t.integer "seat_type"
     t.integer "seats_booked"
     t.integer "status"
+    t.integer "total_price"
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
+    t.index ["attendee_id"], name: "index_bookings_on_attendee_id"
     t.index ["event_id"], name: "index_bookings_on_event_id"
-    t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -60,6 +63,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_103645) do
     t.datetime "event_date"
     t.text "location"
     t.bigint "organizer_id", null: false
+    t.integer "revenue", default: 0
     t.integer "seats_booked"
     t.integer "standard_seat_price"
     t.text "title"
@@ -79,7 +83,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_103645) do
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
     t.integer "total_bookings"
-    t.string "type"
+    t.string "type", default: "Attendee"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -88,7 +92,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_103645) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookings", "events"
-  add_foreign_key "bookings", "users"
+  add_foreign_key "bookings", "users", column: "attendee_id"
+  add_foreign_key "bookings", "users", column: "attendee_id"
   add_foreign_key "events", "users", column: "organizer_id"
   add_foreign_key "events", "users", column: "organizer_id"
 end

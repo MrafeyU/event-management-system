@@ -1,0 +1,22 @@
+<div id="<%dom_id(user)%>">
+    <div class="card-body">
+        <!-- Post Header: Author and Time -->
+        <div>
+            <div class="mt-3">
+            <strong><%= user.name %></strong>
+            </div>
+        </div>
+
+        <% if user.avatar.attached? %>
+        <div class="mb-3 d-flex flex-wrap gap-2">
+            <%= image_tag user.avatar, class: "img-thumbnail", style: "max-height: 50px;" %>
+        </div>
+        <% end %>
+        <div>
+            <strong>Email:</strong><%= user.email%>
+        </div>
+        <div>
+            <strong>Role:</strong><%= user.type%>
+        </div>
+    </div>
+</div>

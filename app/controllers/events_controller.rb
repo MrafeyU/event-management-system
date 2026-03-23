@@ -1,24 +1,41 @@
 class EventsController < ApplicationController
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :remove_images]
+  
+  
+  
   
   def index
-    @events = Event.all.order(created_at: :desc).includes(:organizer)
+    @events = policy_scope(Event.all.order(created_at: :desc).includes(:organizer))
+    # date filter 
+    if params[:date].present?
+      @events = @events.where("DATE(event_date) = ?", params[:date])
+    end
+
+    if params[:query].present?
+      @events = @events.where("title ILIKE ?", "%#{params[:query]}%")
+    end
+
   end
 
 
   def show
-    @event = Event.find(params[:id])
-    @bookings = @event.bookings.includes(:attendee)   
+    @bookings = policy_scope(@event.bookings)
+    authorize @event 
+
   end
 
 
   def new
     @event = Event.new
+    authorize @event
   end
 
 
   def create
     @organizer = Organizer.find(event_params[:user_id])
     @event = @organizer.events.new(event_params.except(:user_id))
+
+    authorize @event
     if @event.save
       redirect_to event_path(@event), notice: "Event created successfully."
     else
@@ -26,16 +43,14 @@ class EventsController < ApplicationController
     end
   end
 
-
   def edit
-    @event = Event.find(params[:id])
-
+    authorize @event
   end
 
 
   def update  
-    @event = Event.find(params[:id])
     @organizer = Organizer.find(event_params[:user_id])
+      authorize @event
     if @event.update(event_params.except(:user_id))
       redirect_to event_path(@event), notice: "Event updated successfully."
     else
@@ -45,7 +60,7 @@ class EventsController < ApplicationController
 
 
   def remove_images
-    @event = Event.find(params[:id])
+    authorize @event
     attachment = @event.images.find(params[:attachment_id])
     attachment.purge
 
@@ -54,15 +69,20 @@ class EventsController < ApplicationController
 
 
   def destroy
-    @event = Event.find(params[:id])
+    authorize @event
     @event.destroy
     redirect_to events_path, notice: "Event deleted successfully."  
   end
 
 
+
   private 
-  def event_params
-    params.expect(event: [:title, :description, :location, :event_date, :total_seats, :user_id,
-                          :vip_seat_price, :standard_seat_price, :economy_seat_price, images: []])
-  end
+    def set_event
+      @event = Event.find(params[:id])
+    end
+
+    def event_params
+      params.expect(event: [:title, :description, :location, :event_date, :total_seats, :user_id,
+                            :vip_seat_price, :standard_seat_price, :economy_seat_price, images: []])
+    end
 end

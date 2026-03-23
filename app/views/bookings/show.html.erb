@@ -1,2 +1,8 @@
-<h1>Organizer::Bookings#show</h1>
-<p>Find me in app/views/organizer/bookings/show.html.erb</p>
+<div class="container my-4">
+  <!-- Render the event card -->
+  <%= render @booking  %>
+
+  <div>
+   <%= link_to "Back to Events", events_path, class: "btn btn-primary" %>
+  </div>
+</div>

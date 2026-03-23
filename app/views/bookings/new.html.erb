@@ -1,2 +1,9 @@
-<h1>Organizer::Bookings#new</h1>
-<p>Find me in app/views/organizer/bookings/new.html.erb</p>
+<div class="container my-4">
+    <p style="color: green"><%= notice %></p>
+    
+
+    <h1><strong>New booking</strong></h1>
+    <%= render "bookings/new", event: @event , booking: @booking %>
+    <br>
+       
+</div>

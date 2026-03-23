@@ -4,6 +4,20 @@ class Event < ApplicationRecord
 
   belongs_to :organizer
   has_many_attached :images
+  validate :date_cannot_be_in_the_past
+  before_validation :set_minimum_seats_booked
+
+  private
+
+  def set_minimum_seats_booked
+    self.seats_booked = [self.seats_booked, 0].max if self.seats_booked.present?
+  end
+
+  def date_cannot_be_in_the_past
+    if event_date.present? && event_date < Date.today
+      errors.add(:event_date, "can't be in the past")
+    end
+  end
 
 
 end

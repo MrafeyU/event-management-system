@@ -1,0 +1,33 @@
+<%= form_with model: [event, booking],class: "p-3 border rounded bg-light"  do |f|%>
+    you can cancel or update stats of your booking for <strong><%= event.title %></strong>.
+    
+    <div class="mb-3">
+    <%= f.label :seats_booked, class: "form-label" %>
+    <%= f.number_field :seats_booked, class: "form-control" %>
+    </div>  
+    <div class="mb-3">
+        <% f.label :status, class: "form-label" %>
+        <%= f.text_field :status, value: "confirmed", style: "display:none;" %>
+    </div>
+
+    <div class="mb-3">
+        <%= f.label :seat_type, class: "form-label" %>
+         <%= f.select :seat_type, booking.class.seat_types.keys.map { |k| [k.humanize, k] }, prompt: "Select seat type", class: "form-select" %>
+    </div>
+
+
+    <% if current_user.is_a?(Admin) %>
+        <div class="mb-3">
+            <%= f.label :attendee_id, class: "form-label" %>
+            <%= f.collection_select :attendee_id, Attendee.all, :id, :name, prompt: "Select Attendee", class: "form-select" %>
+        </div>
+    <% elsif current_user.is_a?(Attendee) %>
+        <div class="mb-3">
+            <%f.label :attendee_id, class: "form-label" %>
+        <%= f.text_field :attendee_id, value: current_user.id, style: "display:none;"%> <br>
+        </div>
+    <% end %>
+      <div>
+            <%= f.submit "Book Seats", class: "btn btn-primary" %>
+      </div>
+  <% end %>

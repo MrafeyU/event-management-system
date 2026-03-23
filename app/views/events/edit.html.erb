@@ -7,7 +7,10 @@
     <br>
 
     <div>
-    <%= link_to "Show this event", event_path(@event) %> |
+    <% if policy(@event).show? %>
+      <%= link_to "Show this event", event_path(@event) %> |
+    <% end %>
+    
     <%= link_to "Back to events", events_path %>
     </div>
 </div>
