@@ -3,6 +3,11 @@ class Event < ApplicationRecord
   has_many :attendees, through: :bookings
 
   belongs_to :organizer
+  scope :by_date, ->(date) { where("DATE(event_date) = ?", date) }
+  scope :search, ->(query){where("title ILIKE ?", "%#{query}%")}
+
+
+
   has_many_attached :images
   validate :date_cannot_be_in_the_past
   before_validation :set_minimum_seats_booked

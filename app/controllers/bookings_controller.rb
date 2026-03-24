@@ -50,7 +50,7 @@ class BookingsController < ApplicationController
         @booking.save!
 
         @event.increment!(:seats_booked, @booking.seats_booked)
-        @event.increment!(:revenue, )
+        @event.increment!(:revenue, @booking.total_price )
       
         current_user.increment!(:total_bookings, @booking.seats_booked)
       
@@ -73,7 +73,6 @@ class BookingsController < ApplicationController
       redirect_to @event, alert: "Booking failed!  #{@booking.errors.full_messages.to_sentence}"
   end
 
-
   def edit  
     @booking = Booking.find(params[:id])
      authorize @booking
@@ -87,8 +86,12 @@ class BookingsController < ApplicationController
 
     if previous_status == "cancelled" && booking_params[:status] == "confirmed"
       redirect_to booking_path(@booking), alert: "Cancelled bookings cannot be confirmed."
-    return
+      return
+    elsif previous_status != "cancelled" && @booking.status == "cancelled" && @booking.event.event_date < Date.today
+      redirect_to booking_path(@booking), alert: " Cannot cancel bookings for past event."
+      return
     end
+
     if @booking.update(booking_params)
       if previous_status != "cancelled" && @booking.status == "cancelled"
         @booking.event.decrement!(:seats_booked, @booking.seats_booked)
@@ -109,7 +112,7 @@ class BookingsController < ApplicationController
     ActiveRecord::Base.transaction do
       @booking.event.decrement!(:seats_booked, @booking.seats_booked)
       @booking.attendee.decrement!(:total_bookings, @booking.seats_booked)
-
+    
       @booking.destroy
     end
     @booking.destroy

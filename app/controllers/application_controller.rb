@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   add_flash_types :info, :error, :success
 
-  before_action :turbo_frame_request_variant
+  # before_action :turbo_frame_request_variant
 
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
   rescue_from Pundit::NotDefinedError, with: :not_authorized

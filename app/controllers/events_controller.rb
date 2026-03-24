@@ -8,11 +8,11 @@ class EventsController < ApplicationController
     @events = policy_scope(Event.all.order(created_at: :desc).includes(:organizer))
     # date filter 
     if params[:date].present?
-      @events = @events.where("DATE(event_date) = ?", params[:date])
+      @events = @events.by_date(params[:date])
     end
 
     if params[:query].present?
-      @events = @events.where("title ILIKE ?", "%#{params[:query]}%")
+      @events = @events.search(params[:query])
     end
 
   end
