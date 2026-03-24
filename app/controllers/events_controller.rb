@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   
   
   def index
-    @events = policy_scope(Event.all.order(created_at: :desc).includes(:organizer))
+    @events = policy_scope(Event.all.order(created_at: :desc).includes(:organizer)).page(params[:page]).per(3)
     # date filter 
     if params[:date].present?
       @events = @events.by_date(params[:date])
@@ -19,7 +19,7 @@ class EventsController < ApplicationController
 
 
   def show
-    @bookings = policy_scope(@event.bookings)
+    @bookings = policy_scope(@event.bookings).page(params[:page]).per(2)
     authorize @event 
 
   end

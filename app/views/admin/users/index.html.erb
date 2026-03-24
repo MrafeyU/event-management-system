@@ -7,7 +7,7 @@
   <% @users.each do |user| %>
     <div class="card mb-2 shadow-sm">
         <%= render partial: "admin/users/user", locals: { user: user }%>
-        <div class="px-2"><%= link_to "Show this user", admin_user_path(user), class: "btn btn-primary" %></p></div>
+        <div class="px-2"><%= link_to "Show this user", admin_user_path(user), class: "btn btn-sm btn-outline-primary" %></p></div>
     </div>
   <% end %>
 </div>

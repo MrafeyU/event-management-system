@@ -20,7 +20,7 @@ gem "cssbundling-rails"
 gem "jbuilder"
 
 gem 'pundit', '~> 2.5', '>= 2.5.2'
-
+gem 'kaminari', '~> 1.2', '>= 1.2.2'
 
 gem 'letter_opener'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
