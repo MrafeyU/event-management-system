@@ -1,3 +1,4 @@
+<%if current_user.is_a?(Admin)%>
 <div class="container my-4">
 <%= form_with(model:[:admin, @user], url: admin_users_path(@user), method: :post, scope: :user, class: "p-3 border rounded bg-light" )  do |form| %>
   <% if @user.errors.any? %>
@@ -45,3 +46,4 @@
 <% end %>
 
 </div>
+<%end%>

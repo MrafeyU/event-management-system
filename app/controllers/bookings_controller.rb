@@ -68,10 +68,16 @@ class BookingsController < ApplicationController
          redirect_to event_path(@event), alert: "Date of event has already passed! "
       end
     end  
-   
+
     rescue ActiveRecord::RecordInvalid
       redirect_to @event, alert: "Booking failed!  #{@booking.errors.full_messages.to_sentence}"
-  end
+    end
+
+
+
+
+
+
 
   def edit  
     @booking = Booking.find(params[:id])
@@ -97,6 +103,7 @@ class BookingsController < ApplicationController
         @booking.event.decrement!(:seats_booked, @booking.seats_booked)
         @booking.attendee.decrement!(:total_bookings, @booking.seats_booked)
       end
+      BookingMailer.booking_cancelled(@booking).deliver_later
       redirect_to booking_path(@booking), notice: "Booking updated successfully."
     else
       render :edit, status: :unprocessable_entity

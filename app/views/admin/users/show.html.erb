@@ -1,3 +1,4 @@
+<%if current_user.is_a?(Admin)%>
 <div class="container my-4">
     <div class="card mb-2 shadow-sm">
     <%= render partial: "admin/users/user", locals: { user: @user }%>
@@ -8,4 +9,5 @@
     <%= link_to "Edit User details", edit_admin_user_path(@user), class: "btn btn-primary"%>
     </div>
 </div>
+<%end%>
 

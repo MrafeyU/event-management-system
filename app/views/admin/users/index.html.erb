@@ -2,7 +2,7 @@
 <% content_for :title, "Users" %>
 
 <h1>Users</h1>
-
+<%if current_user.is_a?(Admin)%>
 <div id="users" >
   <% @users.each do |user| %>
     <div class="card mb-2 shadow-sm">
@@ -13,4 +13,5 @@
 </div>
 
 <%= link_to "New user", new_admin_user_path, class: "btn btn-primary" %>
+<%end%>
 <div>
