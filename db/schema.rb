@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_22_153610) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_25_053043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -49,7 +49,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_22_153610) do
     t.integer "price_per_seat"
     t.integer "seat_type"
     t.integer "seats_booked"
-    t.integer "status"
+    t.string "status"
     t.integer "total_price"
     t.datetime "updated_at", null: false
     t.index ["attendee_id"], name: "index_bookings_on_attendee_id"

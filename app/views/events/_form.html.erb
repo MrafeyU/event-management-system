@@ -20,13 +20,15 @@
         <%= form.label :description, class: "form-label" %>
         <%= form.text_area :description, class: "form-control" %>
     </div>
-    <div class="mb-3">
-        <%= form.label :event_date, class: "form-label" %>
-        <%= form.date_field :event_date, class: "form-control" %>
-    </div>      
-    <div class="mb-3">
-        <%= form.label :location, class: "form-label" %>
-        <%= form.text_field :location, class: "form-control" %>
+      <div class="row">
+      <div class="col mb-3">
+          <%= form.label :event_date, class: "form-label" %>
+          <%= form.date_field :event_date, class: "form-control", style:"width: 10vw;"  %>
+      </div>      
+      <div class="col mb-3">
+          <%= form.label :location, class: "form-label" %>
+          <%= form.text_field :location, class: "form-control", style:"width: 55vw;"  %>
+      </div>
     </div>
     <div class="mb-3">
         <%= form.label :total_seats, class: "form-label" %>
@@ -44,19 +46,18 @@
         <%= form.label :economy_seat_price, class: "form-label" %>
         <%= form.number_field :economy_seat_price, step: 0.01, class: "form-control" %>
     </div>  
+      <% if current_user.is_a?(Admin) %>
+      <div class="mb-3">
+          <%= form.label :user_id, class: "form-label" %>
+          <%= form.collection_select(:user_id, Organizer.all, :id, :name,{ include_blank: 'Select a Organizer' }, class: "form-select" )%>
 
-
-    <% if current_user.is_a?(Admin) %>
-    <div class="mb-3">
-        <%= form.label :user_id, class: "form-label" %>
-        <%= form.collection_select :user_id, Organizer.all, :id, :name, prompt: "Select Organizer", class: "form-select" %>
-    </div>
-    <% elsif current_user.is_a?(Organizer) %>
-    <div class="mb-3">
-         <% form.label :user_id, class: "form-label" %>
-         <% form.text_field :user_id, value: current_user.id, readonly: true, class: "form-control" %>    
-    </div>
-    <% end %>   
+      </div>
+      <% elsif current_user.is_a?(Organizer) %>
+      <div class="mb-3">
+          <% form.label :user_id, class: "form-label" %>
+          <% form.text_field :user_id, value: current_user.id, readonly: true, class: "form-control" %>    
+      </div>
+      <% end %>   
 
 
   <div class="mb-3">

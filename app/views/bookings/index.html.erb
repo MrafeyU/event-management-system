@@ -1,10 +1,9 @@
 <div class="container my-4">
-  <p style="color: green"><%= notice %></p>
 
   <% content_for :title, "Bookings" %>
   <h1>Bookings </h1>
     <div id="bookings">
-      <% @bookings.each do |booking| %>
-        <%= render booking %>
-      <% end %>
+    <%= render @bookings%>
+    </div>
+ 
 </div>

@@ -16,11 +16,8 @@ class BookingPolicy < ApplicationPolicy
      user.present? &&  user.is_a?(Attendee) || admin?
   end
 
-  def edit?
-    update?
-  end
 
-  def update?
+  def cancel?
     attendee? || admin?
   end
 

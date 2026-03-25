@@ -8,18 +8,18 @@ class Admin::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    # authorize [:admin, @user]
+
   end
 
   def new
     @user = User.new
-    # authorize [:admin, @user]
+
   end
 
 
   def create
     @user = User.new(user_params)
-    # authorize [:admin, @user]
+
 
       if @user.save
         redirect_to admin_user_path(@user), notice: "User was successfully created." 
@@ -31,7 +31,7 @@ class Admin::UsersController < ApplicationController
 
 
   def edit
-    # authorize [:admin, @user]
+
   end
 
   def update
