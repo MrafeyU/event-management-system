@@ -3,7 +3,7 @@
 
   <div class="row g-4 mb-4">
     <div class="col-md-4">
-      <div class="card shadow-sm border-0 text-center p-3">
+      <div class="card shadow-sm border-0 text-center p-3" style="background-color: #fde863">
         <h6 class="text-muted">Your Bookings</h6>
         <h2 class="fw-bold"><%= @bookings.count %></h2>
       </div>
@@ -26,7 +26,7 @@
 
     <% @bookings.each do |booking| %>
       <div class="d-flex justify-content-between border-bottom py-2">
-        <span><%= booking.event.title %></span>
+        <span><%= link_to booking.event.title, booking %></span>
         <span class="text-muted">Seats: <%= booking.seats_booked %></span>
       </div>
     <% end %>

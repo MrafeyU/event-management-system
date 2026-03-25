@@ -34,6 +34,7 @@ class BookingsController < ApplicationController
       redirect_to @event, alert: "Booking failed! #{@booking.errors.full_messages.to_sentence}"
   end
 
+  
 
   def cancel
     # Trigger the event
