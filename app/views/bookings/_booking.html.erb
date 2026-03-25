@@ -10,33 +10,33 @@
         </div>
         <div>
             booking made by:
-            <strong>Attendee: </strong><%= booking.attendee&.name || "Unknown Attendee" %>
+            <%= booking.attendee&.name || "Unknown Attendee" %>
         </div>
         </div>
 
         <!-- Booking Details -->
         <div class="card-text">
-            <strong>Event Date:</strong> <%= booking.event&.event_date if booking.event&.event_date.present? %><br>
+            <strong>Event Date:</strong> <%= booking.event&.event_date if booking.event&.event_date.present? %>
             <p><strong>Seats Booked:</strong> <%= booking.seats_booked %></p>
             <p><strong>Status:</strong> <%= booking.status.humanize %></p>
-
-            <div class="row">
-            <%if policy(booking).cancel? %>
-               <% if @booking && @booking.confirmed? %>
-               <div class="col">
-                    <%= button_to 'Cancel Booking', cancel_booking_path(@booking), 
-                                    method: :patch, 
-                                    data: { confirm: 'Are you sure?' }, 
-                                    class: 'btn btn-sm btn-outline-danger' %>
-                </div>
+            <div class="btn-group" role="group">
+            
+                <% if policy(booking).destroy? %>
+                    <%= button_to "Delete", booking_path(booking), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger", type:"button" %>   
                 <% end %>
-            <%end%>
-            <% if policy(booking).destroy? %>
-                   <div class="col">
-                <%= button_to "Delete", booking_path(booking), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger" %>   
-                </div>
-                </div>
-            <% end %>
+
+                <div class="px-2"></div>
+
+                <%if policy(booking).cancel? %>
+                <% if booking && booking.confirmed? %>
+                        <%= button_to 'Cancel Booking', cancel_booking_path(booking), 
+                                        method: :patch, 
+                                        data: { confirm: 'Are you sure?' }, 
+                                        class: 'btn btn-sm btn-outline-danger',
+                                        type:'button'%>
+            
+                    <% end %>
+                <%end%>
             </div>
         </div>     
     </div>

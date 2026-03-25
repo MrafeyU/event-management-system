@@ -39,6 +39,8 @@ class Booking < ApplicationRecord
 
     # rolling back counters after the booking is deleted... 
     def rollback_counters
+      return unless status_changed?(to: 'cancelled') || destroyed?
+      
       event.decrement!(:seats_booked, seats_booked)
       event.decrement!(:revenue, total_price)
       attendee.decrement!(:total_bookings, seats_booked)
