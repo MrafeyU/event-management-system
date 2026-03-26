@@ -2,15 +2,18 @@ class Booking < ApplicationRecord
   include AASM
   belongs_to :attendee
   belongs_to :event
-  enum :seat_type, { economy: 0, standard: 1, vip: 2 }, instance_methods: false
-  before_validation :set_pricing
+
   validates :seats_booked, numericality: { greater_than: 0 }
   validates :seat_type, presence: true
   validate :event_not_expired
   validate :enough_seats_availaible
+
+  before_validation :set_pricing
   after_create :update_event_and_user
   before_destroy :rollback_counters
   after_commit :send_cancellation_email, on: :destroy
+
+  enum :seat_type, { economy: 0, standard: 1, vip: 2 }, instance_methods: false
 
   # defining an aasm column status. 
   aasm column: :status do

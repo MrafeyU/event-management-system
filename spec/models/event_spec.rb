@@ -1,24 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe Event, type: :model do
- it "must have a date ahead of today" do
-  # Create a minimal organizer for the event
-  organizer = User.create!(name: "Test Organizer", email: "org@example.com", password: "password", type: "Organizer")
+  it "has none to begin with" do
+    expect(Event.count).to eq 0
+  end
+  
+  it "creates a valid event" do
+    event = build(:event)
+    puts "Organizer type: #{event.organizer.type}"
+    expect(event).to be_valid
+  end
 
-  event = Event.create!(
-    title: "Test Event",
-    description: "Some description",
-    location: "Test Location",
-    event_date: 0.days.from_now,
-    total_seats: 100,
-    seats_booked: 0,
-    economy_seat_price: 20,
-    standard_seat_price: 50,
-    vip_seat_price: 100,
-    organizer: organizer
-  )
+  it "Must not validate if no date" do 
+     expect(Event.new(event_date: nil)).not_to be_valid
+  end
 
-  expect(event.event_date).to be > Date.today
-end
+  it "must have a date ahead of today" do
+    event = build(:event)
+    puts "Organizer type: #{event.organizer.type}"
+    expect(event.event_date).to be > Date.today
+  end
+
+
+  # testing associations
+  it { should belong_to(:organizer) }
 
 end
