@@ -22,6 +22,7 @@ gem "jbuilder"
 gem 'pundit', '~> 2.5', '>= 2.5.2'
 gem 'kaminari', '~> 1.2', '>= 1.2.2'
 gem 'aasm', '~> 5.1', '>= 5.1.1'
+gem 'rubocop', '~> 1.82', require: false
 
 gem 'letter_opener'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
@@ -59,6 +60,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "factory_bot_rails"
+  gem 'faker'
 end
 
 group :development do
@@ -70,6 +74,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "rspec-rails"
 end
 
 gem "devise", "~> 5.0"

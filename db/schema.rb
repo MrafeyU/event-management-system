@@ -93,7 +93,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_25_053043) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookings", "events"
   add_foreign_key "bookings", "users", column: "attendee_id"
-  add_foreign_key "bookings", "users", column: "attendee_id"
-  add_foreign_key "events", "users", column: "organizer_id"
   add_foreign_key "events", "users", column: "organizer_id"
 end

@@ -1,24 +1,18 @@
 <div class="container my-4">
-<h1>Admin Dashboard</h1>
-
+  <h1>Admin Dashboard</h1>
   <div class="row g-4 mb-4">
-   
     <div class="col-md-4">
       <div class="card shadow-sm border-0 text-center p-3" style="background-color: #fd9e634e">
         <h6 class="text-muted">Users</h6>
         <h2 class="fw-bold"><%= @users_count %></h2>
       </div>
     </div>
-
-
     <div class="col-md-4">
       <div class="card shadow-sm border-0 text-center p-3" style="background-color: #fde8635b">
         <h6 class="text-muted">Events</h6>
         <h2 class="fw-bold"><%= @events_count %></h2>
       </div>
     </div>
-
-
     <div class="col-md-4">
       <div class="card shadow-sm border-0 text-center p-3" style="background-color: #63d4fd41">
         <h6 class="text-muted">Bookings</h6>
@@ -26,8 +20,6 @@
       </div>
     </div>
   </div>
-
-
   <div class="card shadow-sm border-0 p-4 mb-5">
     <h5 class="mb-3">Manage</h5>
     <div class="d-flex flex-wrap gap-2">
@@ -36,8 +28,4 @@
       <%= link_to "Bookings", bookings_path, class: "btn btn-outline-primary" %>
     </div>
   </div>
-
-
-
-
 </div>

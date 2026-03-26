@@ -1,6 +1,5 @@
 <div class="container my-4">
-<h1>Organizer Dashboard</h1>
-
+  <h1>Organizer Dashboard</h1>
   <div class="row g-4 mb-4">
     <div class="col-md-6">
       <div class="card shadow-sm border-0 text-center p-3"style="background-color: #f3fd635b">
@@ -8,7 +7,6 @@
         <h2 class="fw-bold"><%= @events.count %></h2>
       </div>
     </div>
-
     <div class="col-md-6">
       <div class="card shadow-sm border-0 text-center p-3"style="background-color: #b8fd635b">
         <h6 class="text-muted">Total Bookings</h6>
@@ -16,7 +14,6 @@
       </div>
     </div>
   </div>
-
   <div class="card shadow-sm border-0 p-4 mb-4">
     <h5 class="mb-3">Your Actions</h5>
     <div class="d-flex flex-wrap gap-2">
@@ -25,7 +22,6 @@
       <%= link_to "Bookings", bookings_path, class: "btn btn-outline-primary" %>
     </div>
   </div>
-
   <div class="card shadow-sm border-0 p-4">
     <h5 class="mb-3">Your Events</h5>
     <% @events.each do |event| %>
@@ -35,6 +31,4 @@
       </div>
     <% end %>
   </div>
-
-
 </div>

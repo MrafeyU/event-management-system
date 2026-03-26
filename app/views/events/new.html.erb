@@ -1,13 +1,10 @@
 <div class="container my-4">
-    <p style="color: green"><%= notice %></p>
-    
-    <% content_for :title, "New event" %>
-    
-    <h1><strong>New event</strong></h1>
-    <%= render "form", event: @event %>
-    <br>
-    
-    <div>
-        <%= link_to "Back to events", events_path%>
-    </div>      
+  <p style="color: green"><%= notice %></p>
+  <% content_for :title, "New event" %>
+  <h1><strong>New event</strong></h1>
+  <%= render "form", event: @event %>
+  <br>
+  <div>
+    <%= link_to "Back to events", events_path%>
+  </div>
 </div>

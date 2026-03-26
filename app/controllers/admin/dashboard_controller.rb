@@ -4,5 +4,4 @@ class Admin::DashboardController < ApplicationController
     @events_count = Event.count
     @bookings_count = Booking.count
   end
-
 end

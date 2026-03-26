@@ -1,35 +1,28 @@
 class Admin::UserPolicy < ApplicationPolicy
-
   def index?
   end
-
 
   def show?
     admin?
   end
 
-
   def create?
     admin?
   end
-
 
   def new?
     create?
   end
 
-
   def edit?
     update?
   end
-
 
   def update?
     return false unless admin?
     # cannot edit another admin
     !record.is_a?(Admin)
   end
-
 
   def destroy?
     return false unless admin?
@@ -41,8 +34,6 @@ class Admin::UserPolicy < ApplicationPolicy
     user.present? && user.is_a?(Admin)
   end
 
-
-
   # Optional: Scope
   class Scope < ApplicationPolicy::Scope
     def resolve
@@ -53,6 +44,4 @@ class Admin::UserPolicy < ApplicationPolicy
       end
     end
   end
-
-
 end

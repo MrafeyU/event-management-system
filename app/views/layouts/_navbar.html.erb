@@ -1,31 +1,24 @@
-
 <nav class="navbar navbar-expand-lg navbar-light", style="background-color: #9ca1ff92;">
   <div class="container-fluid">
     <!-- Brand / Home Link -->
     <%= link_to "EMS", root_path, class: "navbar-brand" %>
-
     <!-- Toggler for mobile view -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <!-- Navbar links -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-
-
-        <% if current_user&.is_a?(Admin) %>
-          <%= link_to "Home", admin_root_path, class: "nav-link" %>
-        <% elsif current_user&.is_a?(Organizer) %>
-          <%= link_to "Home", organizer_root_path, class: "nav-link" %>
-        <% elsif current_user&.is_a?(Attendee) %>
-          <%= link_to "Home", attendee_root_path, class: "nav-link" %>
-        <% else %>
-          <%= link_to "Home", root_path, class: "nav-link" %>
-        <% end%>
-
-
+          <% if current_user&.is_a?(Admin) %>
+            <%= link_to "Home", admin_root_path, class: "nav-link" %>
+          <% elsif current_user&.is_a?(Organizer) %>
+            <%= link_to "Home", organizer_root_path, class: "nav-link" %>
+          <% elsif current_user&.is_a?(Attendee) %>
+            <%= link_to "Home", attendee_root_path, class: "nav-link" %>
+          <% else %>
+            <%= link_to "Home", root_path, class: "nav-link" %>
+          <% end%>
         </li>
         <% if current_user %>
           <li class="nav-item">
@@ -43,7 +36,6 @@
           </li>
         <% end %>
       </ul>
-
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
         <% if current_user %>
           <li class="nav-item me-2">

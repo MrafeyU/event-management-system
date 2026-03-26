@@ -1,18 +1,17 @@
 <div class="container my-4">
   <!-- Render the event card -->
   <%= render @event %>
-  
   <!-- Bookings Section -->
-    <div class="mt-4">
-      <h5>Bookings</h5>
-      <div id="bookings">
-        <%= render @bookings%>  
-         <div class="mt-3 d-flex gap-2">
-          <%= paginate @bookings %>
-        </div>
+  <div class="mt-4">
+    <h5>Bookings</h5>
+    <div id="bookings">
+      <%= render @bookings%>
+      <div class="mt-3 d-flex gap-2">
+        <%= paginate @bookings %>
       </div>
-      <% if current_user&.is_a?(Attendee) || current_user&.is_a?(Admin) %>
-        <%= link_to "Book Now", new_event_booking_path(event_id: @event.id), class: "btn btn-primary mb-3" %>
-      <% end %>
     </div>
+    <% if current_user&.is_a?(Attendee) || current_user&.is_a?(Admin) %>
+      <%= link_to "Book Now", new_event_booking_path(event_id: @event.id), class: "btn btn-primary mb-3" %>
+    <% end %>
+  </div>
 </div>

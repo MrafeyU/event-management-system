@@ -5,5 +5,4 @@ class Organizer::DashboardController < ApplicationController
                              .where(events: { organizer_id: current_user.id })
                              .count
   end
-
 end

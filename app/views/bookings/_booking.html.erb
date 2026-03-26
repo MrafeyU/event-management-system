@@ -1,43 +1,37 @@
-
 <div id="<%= dom_id booking %>" class="card mb-4 shadow-sm">
-    <div class="card-body">
-        <!-- Post Header: Author and Time -->
-        <div class="d-flex justify-content-between align-items-center mb-2">
-        <div>
-            Booking for: 
-            <strong><%= booking.event&.title || "Unknown Event" %></strong>
-            <small class="text-muted">| <%= time_tag booking.event&.created_at, booking.event&.created_at%></small>
-        </div>
-        <div>
-            booking made by:
-            <%= booking.attendee&.name || "Unknown Attendee" %>
-        </div>
-        </div>
-
-        <!-- Booking Details -->
-        <div class="card-text">
-            <strong>Event Date:</strong> <%= booking.event&.event_date if booking.event&.event_date.present? %>
-            <p><strong>Seats Booked:</strong> <%= booking.seats_booked %></p>
-            <p><strong>Status:</strong> <%= booking.status.humanize %></p>
-            <div class="btn-group" role="group">
-            
-                <% if policy(booking).destroy? %>
-                    <%= button_to "Delete", booking_path(booking), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger", type:"button" %>   
-                <% end %>
-
-                <div class="px-2"></div>
-
-                <%if policy(booking).cancel? %>
-                <% if booking && booking.confirmed? %>
-                        <%= button_to 'Cancel Booking', cancel_booking_path(booking), 
+  <div class="card-body">
+    <!-- Post Header: Author and Time -->
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div>
+        Booking for: 
+        <strong><%= booking.event&.title || "Unknown Event" %></strong>
+        <small class="text-muted">| <%= time_tag booking.event&.created_at, booking.event&.created_at%></small>
+      </div>
+      <div>
+        booking made by:
+        <%= booking.attendee&.name || "Unknown Attendee" %>
+      </div>
+    </div>
+    <!-- Booking Details -->
+    <div class="card-text">
+      <strong>Event Date:</strong> <%= booking.event&.event_date if booking.event&.event_date.present? %>
+      <p><strong>Seats Booked:</strong> <%= booking.seats_booked %></p>
+      <p><strong>Status:</strong> <%= booking.status.humanize %></p>
+      <div class="btn-group" role="group">
+        <% if policy(booking).destroy? %>
+          <%= button_to "Delete", booking_path(booking), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger", type:"button" %>
+        <% end %>
+        <div class="px-2"></div>
+        <%if policy(booking).cancel? %>
+          <% if booking && booking.confirmed? %>
+            <%= button_to 'Cancel Booking', cancel_booking_path(booking), 
                                         method: :patch, 
                                         data: { confirm: 'Are you sure?' }, 
                                         class: 'btn btn-sm btn-outline-danger',
                                         type:'button'%>
-            
-                    <% end %>
-                <%end%>
-            </div>
-        </div>     
+          <% end %>
+        <%end%>
+      </div>
     </div>
+  </div>
 </div>

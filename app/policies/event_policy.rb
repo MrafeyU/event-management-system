@@ -11,7 +11,7 @@ class EventPolicy < ApplicationPolicy
   end
 
   def create?
-    user.present? &&  user.is_a?(Organizer) || admin?
+    user.present? && user.is_a?(Organizer) || admin?
   end
 
   def edit?
@@ -31,14 +31,13 @@ class EventPolicy < ApplicationPolicy
   end 
 
   private
-    def organizer?
-      user.present? &&  user.is_a?(Organizer) && (record.organizer_id == user.id)
-    end
+  def organizer?
+    user.present? &&  user.is_a?(Organizer) && (record.organizer_id == user.id)
+  end
 
-    def admin?
-      user.present? && user.is_a?(Admin)
-    end
-
+  def admin?
+    user.present? && user.is_a?(Admin)
+  end
 
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!

@@ -1,17 +1,16 @@
 <div class="container my-4">
-<% content_for :title, "Users" %>
-
-<h1>Users</h1>
-<%if current_user.is_a?(Admin)%>
-<div id="users" >
-  <% @users.each do |user| %>
-    <div class="card mb-2 shadow-sm">
-        <%= render partial: "admin/users/user", locals: { user: user }%>
-        <div class="px-2"><%= link_to "Show this user", admin_user_path(user), class: "btn btn-sm btn-outline-primary" %></p></div>
-    </div>
-  <% end %>
-</div>
-
-<%= link_to "New user", new_admin_user_path, class: "btn btn-primary" %>
+  <% content_for :title, "Users" %>
+  <h1>Users</h1>
+  <%if current_user.is_a?(Admin)%>
+    <div id="users" >
+      <% @users.each do |user| %>
+        <div class="card mb-2 shadow-sm">
+          <%= render partial: "admin/users/user", locals: { user: user }%>
+          <div class="px-2"><%= link_to "Show this user", admin_user_path(user), class: "btn btn-sm btn-outline-primary" %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to "New user", new_admin_user_path, class: "btn btn-primary" %>
 <%end%>
 <div>

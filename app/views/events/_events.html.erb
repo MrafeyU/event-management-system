@@ -2,9 +2,9 @@
   <% events.each_slice(3) do |slice| %>
     <div class="row mb-4">
       <% slice.each do |event| %>
-          <div class="col-md-4">
-            <%= render 'event', event: event %>
-          </div>
+        <div class="col-md-4">
+          <%= render 'event', event: event %>
+        </div>
       <% end %>
     </div>
   <%end%>

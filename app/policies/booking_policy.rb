@@ -16,7 +16,6 @@ class BookingPolicy < ApplicationPolicy
      user.present? &&  user.is_a?(Attendee) || admin?
   end
 
-
   def cancel?
     attendee? || admin?
   end
@@ -42,10 +41,8 @@ class BookingPolicy < ApplicationPolicy
     def resolve
       if user.is_a?(Admin)
         scope.all
-      
       elsif user.is_a?(Attendee)
         scope.where(attendee_id: user.id)
-      
       elsif user.is_a?(Organizer)
          scope.joins(:event).where(events:{ organizer_id: user.id })
       else

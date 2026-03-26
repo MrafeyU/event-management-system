@@ -1,16 +1,13 @@
-<div class="container my-4">   
-    <p style="color: green"><%= notice %></p>
-    <% content_for :title, "Editing event" %>
-
-    <h1><strong>Editing event</strong></h1>
-    <%= render "form", event: @event %>
-    <br>
-
-    <div>
+<div class="container my-4">
+  <p style="color: green"><%= notice %></p>
+  <% content_for :title, "Editing event" %>
+  <h1><strong>Editing event</strong></h1>
+  <%= render "form", event: @event %>
+  <br>
+  <div>
     <% if policy(@event).show? %>
       <%= link_to "Show this event", event_path(@event) %> |
     <% end %>
-    
     <%= link_to "Back to events", events_path %>
-    </div>
+  </div>
 </div>
