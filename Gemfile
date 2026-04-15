@@ -22,7 +22,7 @@ gem "jbuilder"
 gem 'pundit', '~> 2.5', '>= 2.5.2'
 gem 'kaminari', '~> 1.2', '>= 1.2.2'
 gem 'aasm', '~> 5.1', '>= 5.1.1'
-gem 'rubocop', '~> 1.82', require: false
+gem 'rubocop', '~> 1.86', require: false
 
 gem 'letter_opener'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
