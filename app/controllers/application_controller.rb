@@ -5,37 +5,40 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :turbo_frame_request_variant
-  
+
   add_flash_types :info, :error, :success
 
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
   rescue_from Pundit::NotDefinedError, with: :not_authorized
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
+  # Get the user's role as a string
+  def user_role(user)
+    case user
+    when Admin then "admin"
+    when Organizer then "organizer"
+    when Attendee then "attendee"
+    else "attendee"  # Default to attendee for plain User instances
+    end
+  end
+
   # decide where to redirect users after login based on their role...
   def after_sign_in_path_for(user)
-    if user.is_a?(Admin)
+    case user
+    when Admin
       admin_root_path
-    elsif user.is_a?(Organizer)
+    when Organizer
       organizer_root_path
-    elsif  user.is_a?(Attendee)
-      attendee_root_path  
-    else 
-      root_path
-    end 
-  end
-  
-  # add the user's role to the URL parameters for use in routing.. 
-  def default_url_options
-    if current_user.is_a?(Admin)
-      {role: "admin"}
-    elsif current_user.is_a?(Organizer)
-      {role: "organizer"}     
-    elsif  current_user.is_a?(Attendee)
-      {role: "attendee"}
+    when Attendee
+      attendee_root_path
     else
-      {}  
+      root_path
     end
+  end
+
+  # add the user's role to the URL parameters for use in routing..
+  def default_url_options
+    { role: user_role(current_user) }
   end
 
   protected
@@ -48,8 +51,8 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :type, :avatar ])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :avatar ])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :name, :type, :avatar ])
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :name, :avatar ])
   end
 
   def record_not_found
